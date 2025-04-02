@@ -15,6 +15,7 @@ namespace AIV_Engine
 
         public bool IsGravityAffected;
         public bool IsCollisionAffected;
+        public List<RigidBody> IsCollidingWith;
         public float Friction;
 
         public Vector2 Velocity;
@@ -29,6 +30,7 @@ namespace AIV_Engine
             GameObject = owner;
             PhysicsManager.AddItem(this);
             IsCollisionAffected = true;
+            IsCollidingWith = new List<RigidBody>();
         }
 
         public void Update()

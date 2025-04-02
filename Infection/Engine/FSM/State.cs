@@ -6,7 +6,7 @@ namespace AIV_Engine
 {
     enum FSMStates
     {
-        Walk, Follow, Shoot
+        Normal, Infected, InRecovery, InInfection
     }
 
     abstract class State

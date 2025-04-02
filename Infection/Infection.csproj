@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\Ball.cs" />
+    <Compile Include="GameObjects\Ball.cs" />
     <Compile Include="Configs.cs" />
     <Compile Include="Engine\Controllers\Controller.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -157,6 +157,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\comics.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Graphics\circle-red.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Graphics\circle.png">

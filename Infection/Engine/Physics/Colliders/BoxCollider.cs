@@ -28,6 +28,8 @@ namespace AIV_Engine
             float deltaX = collider.Position.X - Math.Max(Position.X - halfWidth, Math.Min(collider.Position.X, Position.X + halfWidth));
             float deltaY = collider.Position.Y - Math.Max(Position.Y - halfHeight, Math.Min(collider.Position.Y, Position.Y + halfHeight));
 
+            collisioninfo.Delta = new Vector2(-deltaX, -deltaY);
+
             return (deltaX * deltaX + deltaY * deltaY) <= (collider.Radius * collider.Radius);
         }
 

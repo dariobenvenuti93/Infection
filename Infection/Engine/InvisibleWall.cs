@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aiv.Fast2D;
+using Infection;
 using OpenTK;
 
 namespace AIV_Engine
@@ -12,10 +13,10 @@ namespace AIV_Engine
     {
         public InvisibleWall(Vector2 position, Vector2 size)
         {
+            id = Configs.GetGameObjectId();
             float spriteW = size.X;
             float spriteH = size.Y;
             sprite = new Sprite(spriteW, spriteH);
-            sprite.pivot = position;
             sprite.position = position;
             spriteWidth = (int)spriteW;
             spriteHeight = (int)spriteH;
@@ -24,7 +25,6 @@ namespace AIV_Engine
 
             RigidBody  = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Wall;
-            RigidBody.AddCollisionType(RigidBodyType.Ball);
             RigidBody.Collider = ColliderFactory.CreateBoxFor(this);
 
             IsActive = true;

@@ -28,7 +28,7 @@ namespace AIV_Engine
                 if (!isF1Pressed)
                 {
                     isF1Pressed = true;
-                    Configs.SetDebug(!Configs.debug);
+                    Configs.SetDebug(!Configs.Debug);
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace AIV_Engine
         public virtual void Draw()
         {
             DrawManager.Draw();
-            if (Configs.debug) 
+            if (Configs.Debug) 
             { 
                 DebugManager.Draw();
             }

@@ -20,7 +20,7 @@ namespace Infection
             exitKey = exit; 
             balls = new List<Ball>();
             boundaries = new List<InvisibleWall>();
-            numBalls = Configs.numBalls;
+            numBalls = Configs.NumBalls;
         }
         public override void LoadAssets()
         {
@@ -30,11 +30,15 @@ namespace Infection
         {
             LoadAssets();
             for (int i = 0; i < numBalls; i++)
-                balls.Add(new Ball("ball", DrawLayer.Playground));
-            boundaries.Add(new InvisibleWall(Vector2.Zero, new Vector2(Game.Window.Width, 1.0f)));
-            boundaries.Add(new InvisibleWall(new Vector2(0.0f, Game.Window.OrthoHeight), new Vector2(Game.Window.Width, 1.0f)));
-            boundaries.Add(new InvisibleWall(Vector2.Zero, new Vector2(1.0f, Game.Window.Height)));
-            boundaries.Add(new InvisibleWall(new Vector2(Game.Window.OrthoWidth, 0.0f), new Vector2(1.0f, Game.Window.Height)));
+                balls.Add(new Ball("ball", DrawLayer.Playground, spriteW: Configs.BallSize, spriteH: Configs.BallSize)); 
+            // top
+            boundaries.Add(new InvisibleWall(new Vector2(Game.Window.Width * 0.5f, Configs.TopPadding + Configs.BoxThickness * 0.5f), new Vector2(Game.Window.Width, Configs.BoxThickness)));
+            // bot
+            boundaries.Add(new InvisibleWall(new Vector2(Game.Window.Width * 0.5f, Game.Window.Height - Configs.BoxThickness * 0.5f), new Vector2(Game.Window.Width, Configs.BoxThickness)));
+            // left
+            boundaries.Add(new InvisibleWall(new Vector2(Configs.BoxThickness * 0.5f, Configs.TopPadding +  Game.Window.Height * 0.5f), new Vector2(Configs.BoxThickness, Game.Window.Height - Configs.TopPadding + Configs.BoxThickness)));
+            // right
+            boundaries.Add(new InvisibleWall(new Vector2(Game.Window.Width - Configs.BoxThickness * 0.5f, Configs.TopPadding + Game.Window.Height * 0.5f), new Vector2(Configs.BoxThickness, Game.Window.Height - Configs.TopPadding + Configs.BoxThickness)));
             base.Start();
         }
         public override Scene OnExit()

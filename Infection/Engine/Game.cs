@@ -32,15 +32,17 @@ namespace AIV_Engine
 
         public static void Init()
         {
-            Window = new Window(1250, 680, "Infection");
+            
+
+            Window = new Window(Configs.WindowWidth, Configs.WindowHeight, "Infection");
             Window.Position = Vector2.Zero;
-            Window.SetDefaultViewportOrthographicSize(10);
+            //Window.SetDefaultViewportOrthographicSize(10);
 
-            HalfDiagonalSquared = (float)(Math.Pow(Window.OrthoWidth, 2) + Math.Pow(Window.OrthoHeight, 2)) * 0.5f;
-            ScreenCenter = new Vector2(ScreenCenterX, ScreenCenterY);
+            //HalfDiagonalSquared = (float)(Math.Pow(Window.OrthoWidth, 2) + Math.Pow(Window.OrthoHeight, 2)) * 0.5f;
+            //ScreenCenter = new Vector2(ScreenCenterX, ScreenCenterY);
 
-            UnitSize = Window.Height / Window.OrthoHeight;//72 (1280X720 HD)
-            OptimalUnitSize = OptimalScreenHeight / Window.OrthoHeight;//108 (1080/10)
+            //UnitSize = Window.Height / Window.OrthoHeight;//72 (1280X720 HD)
+            //OptimalUnitSize = OptimalScreenHeight / Window.OrthoHeight;//108 (1080/10)
 
             TitleScene titleScene = new TitleScene("titleScreen");
             PlayScene playScene = new PlayScene("playScreen");

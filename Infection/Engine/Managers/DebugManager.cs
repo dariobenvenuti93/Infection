@@ -14,7 +14,9 @@ namespace AIV_Engine
         static List<Sprite> sprites;
 
         static Vector4 greenColor;
+        static Vector4 redColor;
         static Texture circleTexture;
+        static Texture circleTextureRed;
 
         static bool isActive;
         static bool isButtonPressed;
@@ -25,7 +27,9 @@ namespace AIV_Engine
             sprites = new List<Sprite>();
 
             greenColor = new Vector4(0f, 1f, 0f, 1f);
+            redColor = new Vector4(1f, 0f, 0f, 1f);
             circleTexture = new Texture("Assets/Graphics/circle.png");
+            circleTextureRed = new Texture("Assets/Graphics/circle-red.png");
 
             isActive = true;
         }
@@ -92,11 +96,25 @@ namespace AIV_Engine
 
                     if (items[i] is BoxCollider)
                     {
-                        sprites[i].DrawWireframe(greenColor);
+                        if (items[i].RigidBody.IsCollidingWith.Count > 0)
+                        {
+                            sprites[i].DrawWireframe(redColor); 
+                        }
+                        else
+                        {
+                            sprites[i].DrawWireframe(greenColor);
+                        }
                     }
                     else
                     {
-                        sprites[i].DrawTexture(circleTexture);
+                        if (items[i].RigidBody.IsCollidingWith.Count > 0)
+                        {
+                            sprites[i].DrawTexture(circleTextureRed);
+                        }
+                        else
+                        {
+                            sprites[i].DrawTexture(circleTexture);
+                        }
                     }
                 }
             }

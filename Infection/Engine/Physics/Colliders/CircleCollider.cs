@@ -21,6 +21,7 @@ namespace AIV_Engine
         public override bool Collides(CircleCollider collider, ref Collision collisioninfo)
         {
             Vector2 distance = collider.Position - Position;
+            collisioninfo.Delta = -distance;
             return distance.LengthSquared <= Math.Pow(collider.Radius + Radius, 2);
         }
 

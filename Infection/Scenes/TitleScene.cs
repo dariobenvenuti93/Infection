@@ -24,13 +24,13 @@ namespace Infection
         public override void Start()
         {
             LoadAssets();
-            bg = new GameObject(textureName, DrawLayer.Background, spriteW: Game.Window.OrthoWidth, spriteH: Game.Window.OrthoHeight);
+            bg = new GameObject(textureName, DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
             bg.IsActive = true; 
             bg.Pivot = Vector2.Zero;
             DrawManager.AddItem(bg);
-            playText = new TextObject(new Vector2(Game.Window.OrthoWidth * 0.4f, Game.Window.OrthoHeight * 0.2f), $"Press {playKey} to start!");
+            playText = new TextObject(new Vector2(Game.Window.Width * 0.35f, Game.Window.Height * 0.2f), $"Press {playKey} to start!");
             playText.IsActive = true;
-            exitText = new TextObject(new Vector2(Game.Window.OrthoWidth * 0.4f, Game.Window.OrthoHeight * 0.3f), $"Press {exitKey} to exit!");
+            exitText = new TextObject(new Vector2(Game.Window.Width * 0.35f, Game.Window.Height * 0.3f), $"Press {exitKey} to exit!");
             exitText.IsActive = true;
             base.Start();
         }

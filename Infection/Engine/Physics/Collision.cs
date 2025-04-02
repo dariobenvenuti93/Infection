@@ -13,6 +13,7 @@ namespace AIV_Engine
     {
         public Vector2 Delta;
         public GameObject Collider;
+        public RigidBody RigidBody;
         public CollisionType Type;
     }
 }

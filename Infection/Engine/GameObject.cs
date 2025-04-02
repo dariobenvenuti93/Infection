@@ -1,5 +1,7 @@
 ﻿using Aiv.Fast2D;
+using Infection;
 using OpenTK;
+using OpenTK.Graphics.ES20;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,9 @@ namespace AIV_Engine
 {
     internal class GameObject: I_Updatable, I_Drawable
     {
+        protected int id;
+        public int Id { get { return id; } }
+
         protected Texture texture;
         protected Sprite sprite;
 
@@ -54,9 +59,12 @@ namespace AIV_Engine
         public GameObject(string textureName, DrawLayer layer = DrawLayer.Playground, int textOffsetX=0, int textOffsetY=0, float spriteW=0, float spriteH=0)
         {
             texture = GfxManager.GetTexture(textureName);
+            id = Configs.GetGameObjectId();
 
-            float _spriteW = spriteW > 0 ? spriteW : Game.PixelsToUnits(texture.Width);
-            float _spriteH = spriteH > 0 ? spriteH : Game.PixelsToUnits(texture.Height);
+            //float _spriteW = spriteW > 0 ? spriteW : Game.PixelsToUnits(texture.Width);
+            //float _spriteH = spriteH > 0 ? spriteH : Game.PixelsToUnits(texture.Height);
+            float _spriteW = spriteW > 0 ? spriteW : texture.Width;
+            float _spriteH = spriteH > 0 ? spriteH : texture.Height;
 
             sprite = new Sprite(_spriteW, _spriteH);
 
@@ -84,7 +92,7 @@ namespace AIV_Engine
 
         public virtual void OnCollide(Collision collisionInfo)
         {
-            Console.WriteLine("Collision!!!");
+            sprite.position -= collisionInfo.Delta;
         }
 
         public virtual void Draw()
