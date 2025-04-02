@@ -13,6 +13,7 @@ namespace Infection
         public static float BallSpeed;
         public static float InfectionRadius;
         public static float BoxThickness;
+        public static float BallEnergy;
 
         private static int currentGameObjectId;
 
@@ -20,14 +21,11 @@ namespace Infection
         public static int NumBalls;
         public static int WindowWidth;
         public static int WindowHeight;
-        public static int BallEnergy;
         public static int InitialGameObjectId;
         public static int TopPadding;
 
         public static bool Debug;
 
-        public static Vector4 HealthyTint;
-        public static Vector4 InfectedTint;
         public static void SetDebug(bool value)
         {
             Debug = value;
@@ -43,8 +41,6 @@ namespace Infection
             BoxThickness = 22.5f;
             BallSize = (int)(WindowWidth * 0.02f);
             InfectionRadius = BallSize * 2.0f;
-            HealthyTint = new Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-            InfectedTint = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
             InitialGameObjectId = 0;
             currentGameObjectId = InitialGameObjectId;
             TopPadding = 50;

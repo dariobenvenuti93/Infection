@@ -9,15 +9,15 @@ namespace Infection
     internal class Ball : GameObject
     {
         protected Vector2 direction;
-        protected int energy;
+        protected float energy;
 
         protected RigidBody infectionRigidBody;
         public Ball(string textureName, DrawLayer layer = DrawLayer.Playground, int textOffsetX = 0, int textOffsetY = 0, int spriteW = 0, int spriteH  = 0) : base(textureName, layer, textOffsetX, textOffsetY, spriteW, spriteH)
         {
             maxSpeed = Configs.BallSpeed;
+            energy = Configs.BallEnergy;
 
             sprite.position = new Vector2(RandomGenerator.GetRandomFloat() * (Game.Window.Width - Configs.BoxThickness) + Configs.BoxThickness, RandomGenerator.GetRandomFloat() * (Game.Window.Height - Configs.BoxThickness) + Configs.BoxThickness + Configs.TopPadding);
-            sprite.SetMultiplyTint(Configs.HealthyTint);
 
             RigidBody = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Ball;
@@ -55,7 +55,14 @@ namespace Infection
             if (IsActive && RigidBody.Velocity != Vector2.Zero)
             {
                 Forward = RigidBody.Velocity;
-            } 
+            }
+        }
+        public override void Draw()
+        {
+            base.Draw();
+            float rComponent = (Configs.BallEnergy - energy) * 0.01f;
+            float gComponent = energy * 0.01f;
+            sprite.SetMultiplyTint(new Vector4(rComponent, gComponent, 0.0f, 1.0f));
         }
         public override void OnCollide(Collision collisionInfo)
         {
