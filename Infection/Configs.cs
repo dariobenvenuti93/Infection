@@ -14,11 +14,15 @@ namespace Infection
         public static float InfectionRadius;
         public static float BoxThickness;
         public static float BallEnergy;
+        public static float InfectionRate;
+        public static float RecoveryRate;
+        public static float RecoveryTime;
 
         private static int currentGameObjectId;
 
         public static int BallSize;
         public static int NumBalls;
+        public static int NumInfectedBalls;
         public static int WindowWidth;
         public static int WindowHeight;
         public static int InitialGameObjectId;
@@ -32,18 +36,22 @@ namespace Infection
         }
         static Configs()
         {
-            BallSpeed = 150.0f;
+            BallSpeed = 100.0f;
             BallEnergy = 100;
             NumBalls = 30;
+            NumInfectedBalls = 1;
             Debug = true;
             WindowWidth = 1250;
             WindowHeight = 600;
-            BoxThickness = 22.5f;
+            BoxThickness = 12.5f;
             BallSize = (int)(WindowWidth * 0.02f);
-            InfectionRadius = BallSize * 2.0f;
+            InfectionRadius = BallSize * 3.5f;
             InitialGameObjectId = 0;
             currentGameObjectId = InitialGameObjectId;
-            TopPadding = 50;
+            TopPadding = 30;
+            RecoveryRate = 15.0f;  // energy each second
+            InfectionRate = 30.0f; // energy each second
+            RecoveryTime = 4000.0f; // milliseconds
         }
         public static int GetGameObjectId()
         {

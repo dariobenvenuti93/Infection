@@ -10,14 +10,31 @@ namespace Infection
     {
         protected Vector2 direction;
         protected float energy;
+        protected StateMachine fsm;
+        public StateMachine Fsm { get { return fsm; } }
+        public float Energy { get { return energy;} set { energy = value; } }
 
         protected RigidBody infectionRigidBody;
+        public RigidBody InfectionRigidBody { get { return infectionRigidBody; } }
         public Ball(string textureName, DrawLayer layer = DrawLayer.Playground, int textOffsetX = 0, int textOffsetY = 0, int spriteW = 0, int spriteH  = 0) : base(textureName, layer, textOffsetX, textOffsetY, spriteW, spriteH)
         {
             maxSpeed = Configs.BallSpeed;
             energy = Configs.BallEnergy;
 
-            sprite.position = new Vector2(RandomGenerator.GetRandomFloat() * (Game.Window.Width - Configs.BoxThickness) + Configs.BoxThickness, RandomGenerator.GetRandomFloat() * (Game.Window.Height - Configs.BoxThickness) + Configs.BoxThickness + Configs.TopPadding);
+            fsm = new InfectionStateMachine(this);
+
+            float boxThickness = Configs.BoxThickness * 1.2f;
+            float maxPosX = Game.Window.Width - boxThickness;
+            float minPosX = boxThickness;
+            float maxPosY = Game.Window.Height - boxThickness;
+            float minPosY = Configs.TopPadding + boxThickness;
+            float posX = RandomGenerator.GetRandomFloat() * maxPosX;
+            float posY = RandomGenerator.GetRandomFloat() * maxPosY;
+            if (posX < minPosX) 
+                posX = minPosX;
+            if (posY < minPosY)
+                posY = minPosY;
+            sprite.position = new Vector2(posX, posY);
 
             RigidBody = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Ball;
@@ -49,6 +66,7 @@ namespace Infection
         }
         public override void Update()
         {
+            fsm.Update();
             RigidBody.Velocity = direction * maxSpeed;
             base.Update();
             //rotation based on velocity

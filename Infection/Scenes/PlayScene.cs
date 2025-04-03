@@ -14,13 +14,11 @@ namespace Infection
         protected KeyCode exitKey;
         protected List<Ball> balls;
         protected List<InvisibleWall> boundaries;
-        protected int numBalls;
         public PlayScene(string textName, KeyCode exit = KeyCode.Return) 
         {
             exitKey = exit; 
             balls = new List<Ball>();
             boundaries = new List<InvisibleWall>();
-            numBalls = Configs.NumBalls;
         }
         public override void LoadAssets()
         {
@@ -29,8 +27,12 @@ namespace Infection
         public override void Start()
         {
             LoadAssets();
-            for (int i = 0; i < numBalls; i++)
+            for (int i = 0; i < Configs.NumBalls; i++)
                 balls.Add(new Ball("ball", DrawLayer.Playground, spriteW: Configs.BallSize, spriteH: Configs.BallSize)); 
+            for (int i = 0; i < Configs.NumInfectedBalls; i++)
+            {
+                balls[i].Fsm.GoTo(FSMStates.Infected);
+            }
             // top
             boundaries.Add(new InvisibleWall(new Vector2(Game.Window.Width * 0.5f, Configs.TopPadding + Configs.BoxThickness * 0.5f), new Vector2(Game.Window.Width, Configs.BoxThickness)));
             // bot

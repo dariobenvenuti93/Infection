@@ -6,9 +6,8 @@ namespace AIV_Engine
 {
     enum FSMStates
     {
-        Normal, Infected, InRecovery, InInfection
+        Healthy, Infected, InRecovery, InInfection
     }
-
     abstract class State
     {
         protected StateMachine fsm;

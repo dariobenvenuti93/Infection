@@ -146,6 +146,12 @@
     <Compile Include="Scenes\TitleScene.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="States\HealthyState.cs" />
+    <Compile Include="States\InfectedState.cs" />
+    <Compile Include="States\InfectionState.cs" />
+    <Compile Include="States\InfectionStateMachine.cs" />
+    <Compile Include="States\RecoveringState.cs" />
+    <Compile Include="States\SickeningState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
