@@ -12,19 +12,26 @@ namespace Infection
     internal class PlayScene : Scene
     {
         protected KeyCode exitKey;
-        protected List<InvisibleWall> boundaries;
+        protected GameObject bg;
         public PlayScene(string textName, KeyCode exit = KeyCode.Return) 
         {
             exitKey = exit; 
-            boundaries = new List<InvisibleWall>();
         }
         public override void LoadAssets()
         {
             GfxManager.AddTexture("ball", "Assets/Graphics/grey_ball.png");
+            GfxManager.AddTexture("lab", "Assets/Graphics/lab.jpg");
+            //Fonts
+            FontMgr.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
+            FontMgr.AddFont("comics", "Assets/comics.png", 10, 32, 61, 65);
         }
         public override void Start()
         {
             LoadAssets();
+            bg = new GameObject("lab", DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
+            bg.IsActive = true;
+            bg.Pivot = Vector2.Zero;
+            DrawManager.AddItem(bg);
             BallManager.SpawnBalls();
             InvisibleWallsManager.SpawnWalls();
             base.Start();
@@ -49,6 +56,7 @@ namespace Infection
         {
             BallManager.DespawnBalls();
             InvisibleWallsManager.DespawnWalls();
+            bg = null;
             return base.OnExit();
         }
     }

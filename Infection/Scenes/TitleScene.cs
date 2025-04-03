@@ -24,7 +24,7 @@ namespace Infection
         public override void Start()
         {
             LoadAssets();
-            bg = new GameObject(textureName, DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
+            bg = new GameObject("lab", DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
             bg.IsActive = true; 
             bg.Pivot = Vector2.Zero;
             DrawManager.AddItem(bg);
@@ -37,7 +37,8 @@ namespace Infection
 
         public override void LoadAssets()
         {
-            GfxManager.AddTexture(textureName, "Assets/Graphics/aivBG.png");
+            //GfxManager.AddTexture("aivBg", "Assets/Graphics/aivBG.png");
+            GfxManager.AddTexture("lab", "Assets/Graphics/lab.jpg");
             //Fonts
             FontMgr.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
             FontMgr.AddFont("comics", "Assets/comics.png", 10, 32, 61, 65);
