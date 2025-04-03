@@ -45,12 +45,19 @@ namespace Infection
 
         public override void Input()
         {
-            if (Game.Window.GetKey(exitKey))
+             if (Game.Window.GetKey(exitKey))
             {
-                NextScene = null;
-                IsPlaying = false;
+                if (!NextScene.IsExitKeyPressed)
+                {
+                    NextScene = null;
+                    IsPlaying = false;
+                }
             }
-            else if (Game.Window.GetKey(playKey))
+            else
+            {
+                NextScene.IsExitKeyPressed = false;
+            }
+            if (Game.Window.GetKey(playKey))
             {
                 IsPlaying = false;
             }

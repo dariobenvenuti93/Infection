@@ -9,6 +9,8 @@ namespace Infection
     internal class Ball : GameObject
     {
         protected Vector2 direction;
+        public float DirectionX { get { return direction.X; } set { direction.X = value; } }
+        public float DirectionY { get { return direction.Y; } set { direction.Y = value; } }
         protected float energy;
         protected StateMachine fsm;
         public StateMachine Fsm { get { return fsm; } }
@@ -22,19 +24,6 @@ namespace Infection
             energy = Configs.BallEnergy;
 
             fsm = new InfectionStateMachine(this);
-
-            float boxThickness = Configs.BoxThickness * 1.2f;
-            float maxPosX = Game.Window.Width - boxThickness;
-            float minPosX = boxThickness;
-            float maxPosY = Game.Window.Height - boxThickness;
-            float minPosY = Configs.TopPadding + boxThickness;
-            float posX = RandomGenerator.GetRandomFloat() * maxPosX;
-            float posY = RandomGenerator.GetRandomFloat() * maxPosY;
-            if (posX < minPosX) 
-                posX = minPosX;
-            if (posY < minPosY)
-                posY = minPosY;
-            sprite.position = new Vector2(posX, posY);
 
             RigidBody = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Ball;
@@ -50,19 +39,6 @@ namespace Infection
 
             DebugManager.AddItem(RigidBody.Collider);
             DebugManager.AddItem(infectionRigidBody.Collider);
-
-            direction.X = RandomGenerator.GetRandomFloat();
-            direction.Y = 1 - direction.X;
-            if (RandomGenerator.GetRandomBool())
-                direction.X *= -1;
-            if (RandomGenerator.GetRandomBool())
-                direction.Y *= -1;
-            RigidBody.Velocity = direction * maxSpeed;
-
-            IsActive = true;
-
-            DrawManager.AddItem(this);
-            UpdateManager.AddItem(this);
         }
         public override void Update()
         {

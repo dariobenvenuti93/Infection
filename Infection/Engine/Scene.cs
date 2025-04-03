@@ -8,12 +8,14 @@ namespace AIV_Engine
     {
         public bool IsPlaying { get; protected set; }
         protected bool isF1Pressed;
+        public bool IsExitKeyPressed;
         public Scene NextScene;
 
         public virtual void Start()
         {
             IsPlaying = true;
             isF1Pressed = false;
+            IsExitKeyPressed = false;
         }
 
         public virtual void LoadAssets()

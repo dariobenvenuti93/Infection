@@ -1,6 +1,7 @@
 ﻿using OpenTK;
 using System;
 using Aiv.Fast2D;
+using Infection;
 
 namespace AIV_Engine
 {

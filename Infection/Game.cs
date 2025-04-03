@@ -2,9 +2,9 @@
 using OpenTK;
 using System;
 using System.Collections.Generic;
-using Infection;
+using AIV_Engine;
 
-namespace AIV_Engine
+namespace Infection
 {
     static class Game
     {
@@ -47,6 +47,7 @@ namespace AIV_Engine
             TitleScene titleScene = new TitleScene("titleScreen");
             PlayScene playScene = new PlayScene("playScreen");
             titleScene.NextScene = playScene;
+            playScene.NextScene = titleScene;
 
             CurrentScene = titleScene;
 

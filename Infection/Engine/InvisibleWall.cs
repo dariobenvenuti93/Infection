@@ -26,10 +26,6 @@ namespace AIV_Engine
             RigidBody  = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Wall;
             RigidBody.Collider = ColliderFactory.CreateBoxFor(this);
-
-            IsActive = true;
-           
-            DebugManager.AddItem(RigidBody.Collider);
         }
     }
 }

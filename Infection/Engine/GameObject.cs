@@ -17,6 +17,7 @@ namespace AIV_Engine
 
         protected Texture texture;
         protected Sprite sprite;
+        public Sprite Sprite { get { return sprite; } }
 
         public RigidBody RigidBody;
         public bool IsActive;
