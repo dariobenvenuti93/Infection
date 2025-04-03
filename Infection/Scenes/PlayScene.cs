@@ -13,6 +13,7 @@ namespace Infection
     {
         protected KeyCode exitKey;
         protected GameObject bg;
+        protected TextObject ballsText;
         public PlayScene(string textName, KeyCode exit = KeyCode.Return) 
         {
             exitKey = exit; 
@@ -28,13 +29,23 @@ namespace Infection
         public override void Start()
         {
             LoadAssets();
+
             bg = new GameObject("lab", DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
             bg.IsActive = true;
             bg.Pivot = Vector2.Zero;
             DrawManager.AddItem(bg);
+
+            ballsText = new TextObject(new Vector2(Configs.BoxThickness, Configs.TopPadding * 0.25f), $"Infected: {BallManager.InfectedBallCount} / {BallManager.BallCount + BallManager.InfectedBallCount}");
+            ballsText.IsActive = true;
+
             BallManager.SpawnBalls();
             InvisibleWallsManager.SpawnWalls();
             base.Start();
+        }
+        public override void Update()
+        {
+            base.Update();
+            ballsText.Text = $"Infected: {BallManager.InfectedBallCount} / {BallManager.BallCount + BallManager.InfectedBallCount}";
         }
         public override void Input()
         {

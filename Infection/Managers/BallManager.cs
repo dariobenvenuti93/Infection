@@ -11,8 +11,8 @@ namespace Infection
 {
     static class BallManager
     {
-        public static List<Ball> Balls;
-        public static List<Ball> InfectedBalls;
+        private static List<Ball> Balls;
+        private static List<Ball> InfectedBalls;
         public static int BallCount { get { return Balls.Count; } }
         public static int InfectedBallCount { get { return InfectedBalls.Count; } }
         static BallManager()
@@ -31,9 +31,19 @@ namespace Infection
             Balls.Clear();
             InfectedBalls.Clear();
         }
+        public static void Infect(Ball b)
+        {
+            InfectedBalls.Add(b);
+            Balls.Remove(b);
+        }
+        public static void Recover(Ball b)
+        {
+            InfectedBalls.Remove(b);
+            Balls.Add(b);
+        }
         static public void SpawnBalls()
         {
-            float boxThickness = Configs.BoxThickness * 1.2f;
+            float boxThickness = Configs.BoxThickness * 1.1f + Configs.BallSize * 1.0f;
             float maxPosX = Game.Window.Width - boxThickness;
             float minPosX = boxThickness;
             float maxPosY = Game.Window.Height - boxThickness;
@@ -66,8 +76,6 @@ namespace Infection
             for (int i = 0; i < Configs.NumInfectedBalls; i++)
             {
                 Balls[i].Fsm.GoTo(FSMStates.Infected);
-                InfectedBalls.Add(Balls[i]);
-                Balls.Remove(Balls[i]);
             }
         }
         public static void ResetBall(Ball ball)
@@ -80,8 +88,8 @@ namespace Infection
             for (int i = 0; i < InfectedBallCount; i++)
             {
                 Balls.Add(InfectedBalls[i]);
-                InfectedBalls.Remove(InfectedBalls[i]);
             }
+            InfectedBalls.Clear();
             for (int i = 0; i < BallCount; i++)
             {
                 ResetBall(Balls[i]);

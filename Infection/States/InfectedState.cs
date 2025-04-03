@@ -22,6 +22,7 @@ namespace Infection
             {
                 ball.Energy = 0.0f;
             }
+            BallManager.Infect(ball);
         }
         public override void Update()
         {
@@ -61,6 +62,7 @@ namespace Infection
                 {
                     recoveryTimer.Reset();
                     ball.Fsm.GoTo(FSMStates.InRecovery);
+                    BallManager.Recover(ball);
                 }
             }
         }
