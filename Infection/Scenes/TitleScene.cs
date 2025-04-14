@@ -7,7 +7,7 @@ namespace Infection
 {
     internal class TitleScene : Scene
     {
-        protected GameObject bg;
+        protected Background bg;
         protected string textureName;
         protected KeyCode exitKey;
         protected KeyCode playKey;
@@ -24,15 +24,12 @@ namespace Infection
         public override void Start()
         {
             LoadAssets();
-            bg = new GameObject("lab", DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
-            bg.IsActive = true; 
-            bg.Pivot = Vector2.Zero;
-            DrawManager.AddItem(bg);
+            base.Start();
+            bg = new Background("lab", DrawLayer.Background);
             playText = new TextObject(new Vector2(Game.Window.Width * 0.35f, Game.Window.Height * 0.2f), $"Press {playKey} to start!");
             playText.IsActive = true;
             exitText = new TextObject(new Vector2(Game.Window.Width * 0.35f, Game.Window.Height * 0.3f), $"Press {exitKey} to exit!");
             exitText.IsActive = true;
-            base.Start();
         }
 
         public override void LoadAssets()
@@ -48,7 +45,7 @@ namespace Infection
         {
              if (Game.Window.GetKey(exitKey))
             {
-                if (!NextScene.IsExitKeyPressed)
+                if (!NextScene.IsExitKeyPressed && !NextScene.NextScene.IsExitKeyPressed)
                 {
                     NextScene = null;
                     IsPlaying = false;

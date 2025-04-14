@@ -18,10 +18,10 @@ namespace AIV_Engine
             float spriteH = size.Y;
             sprite = new Sprite(spriteW, spriteH);
             sprite.position = position;
-            spriteWidth = (int)spriteW;
-            spriteHeight = (int)spriteH;
-            HalfWidth = spriteWidth * 0.5f;
-            HalfHeight = spriteHeight * 0.5f;
+            cutWidth = (int)spriteW;
+            cutHeight = (int)spriteH;
+            HalfWidth = cutWidth * 0.5f;
+            HalfHeight = cutHeight * 0.5f;
 
             RigidBody  = new RigidBody(this);
             RigidBody.Type = RigidBodyType.Wall;

@@ -15,14 +15,14 @@ namespace AIV_Engine
         public char Character {  get { return character; } set { character = value; ComputeOffset(); } }
 
         //public TextChar(Vector2 spritePosition, char character, Font f) : base(f.TextureName, DrawLayer.GUI, spriteW: Game.PixelsToUnits(f.CharacterWidth), spriteH: Game.PixelsToUnits(f.CharacterHeight))
-        public TextChar(Vector2 spritePosition, char character, Font f) : base(f.TextureName, DrawLayer.GUI, spriteW: f.CharacterWidth, spriteH: f.CharacterHeight)
+        public TextChar(Vector2 spritePosition, char character, Font f) : base(f.TextureName, DrawLayer.GUI, spriteWidth: f.CharacterWidth, spriteHeight: f.CharacterHeight)
         {
             sprite.position = spritePosition;
 
             sprite.pivot = Vector2.Zero;
             font = f;
-            spriteWidth = f.CharacterWidth;
-            spriteHeight = f.CharacterHeight;
+            cutWidth = f.CharacterWidth;
+            cutHeight = f.CharacterHeight;
             Character = character;
             IsActive = true;
 

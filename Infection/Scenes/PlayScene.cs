@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Aiv.Fast2D;
 using AIV_Engine;
+using Infection.Scenes;
 using OpenTK;
 
 namespace Infection
@@ -12,7 +13,7 @@ namespace Infection
     internal class PlayScene : Scene
     {
         protected KeyCode exitKey;
-        protected GameObject bg;
+        protected Background bg;
         protected TextObject ballsText;
         public PlayScene(string textName, KeyCode exit = KeyCode.Return) 
         {
@@ -20,7 +21,11 @@ namespace Infection
         }
         public override void LoadAssets()
         {
-            GfxManager.AddTexture("ball", "Assets/Graphics/grey_ball.png");
+            //GfxManager.AddTexture("ball", "Assets/Graphics/grey_ball.png");
+            GfxManager.AddTexture("virusIdle1", "Assets/Graphics/coronavirus-classic-idle1-sheet.png");
+            GfxManager.AddTexture("virusIdle2", "Assets/Graphics/coronavirus-classic-idle2-sheet.png");
+            GfxManager.AddTexture("virusHit", "Assets/Graphics/coronavirus-classic-hit-sheet.png");
+            GfxManager.AddTexture("virusAttack", "Assets/Graphics/coronavirus-classic-attack-sheet.png");
             GfxManager.AddTexture("lab", "Assets/Graphics/lab.jpg");
             //Fonts
             FontMgr.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
@@ -30,25 +35,39 @@ namespace Infection
         {
             LoadAssets();
 
-            bg = new GameObject("lab", DrawLayer.Background, spriteW: Game.Window.Width, spriteH: Game.Window.Height);
-            bg.IsActive = true;
-            bg.Pivot = Vector2.Zero;
-            DrawManager.AddItem(bg);
+            base.Start();
+
+            bg = new Background("lab", DrawLayer.Background);
 
             ballsText = new TextObject(new Vector2(Configs.BoxThickness, Configs.TopPadding * 0.25f), $"Infected: {BallManager.InfectedBallCount} / {BallManager.BallCount + BallManager.InfectedBallCount}");
             ballsText.IsActive = true;
 
-            BallManager.SpawnBalls();
             InvisibleWallsManager.SpawnWalls();
-            base.Start();
+            BallManager.SpawnBalls();
+
         }
         public override void Update()
         {
             base.Update();
             ballsText.Text = $"Infected: {BallManager.InfectedBallCount} / {BallManager.BallCount + BallManager.InfectedBallCount}";
+            if ( BallManager.InfectedBallCount == Configs.NumBalls )
+            {
+                Scene oldNextScene = NextScene;
+                NextScene = new GameOverScene("GameOverScreen", KeyCode.Return);
+                NextScene.NextScene = oldNextScene;
+                IsPlaying = false;
+            }
+            else if ( BallManager.InfectedBallCount == 0 )
+            {
+                Scene oldNextScene = NextScene;
+                NextScene = new VictoryScene("VictoryScreen", KeyCode.Return);
+                NextScene.NextScene = oldNextScene; 
+                IsPlaying = false;
+            }
         }
         public override void Input()
         {
+            base.Input();
             if (Game.Window.GetKey(exitKey))
             {
                 if (!IsExitKeyPressed)
@@ -65,7 +84,9 @@ namespace Infection
         }
         public override Scene OnExit()
         {
-            BallManager.DespawnBalls();
+            
+            if (!(NextScene is GameOverScene) || !(NextScene is VictoryScene))
+                BallManager.DespawnBalls();
             InvisibleWallsManager.DespawnWalls();
             bg = null;
             return base.OnExit();

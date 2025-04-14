@@ -7,6 +7,7 @@ namespace AIV_Engine
     {
         private Dictionary<FSMStates, State> states;
         private State currentState;
+        public State CurrentState { get { return currentState; } }
 
         public StateMachine()
         {

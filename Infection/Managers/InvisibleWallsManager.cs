@@ -14,7 +14,7 @@ namespace Infection
         public static List<InvisibleWall> Walls;
         static InvisibleWallsManager()
         {
-            Walls = new List<InvisibleWall>();
+            Walls = new List<InvisibleWall>(4);
             CreateWalls();
         }
         public static void CreateWalls()
@@ -28,12 +28,21 @@ namespace Infection
             Vector2 verticalPosLeft = new Vector2(Configs.BoxThickness * 0.5f, Configs.TopPadding + Game.Window.Height * 0.5f);
             Vector2 verticalPosRight = new Vector2(Game.Window.Width - Configs.BoxThickness * 0.5f, Configs.TopPadding + Game.Window.Height * 0.5f);
 
-            Walls.Add(new InvisibleWall(horizontalPosTop, horizontalSize));
-            Walls.Add(new InvisibleWall(horizontalPosBot, horizontalSize));
-            // left
-            Walls.Add(new InvisibleWall(verticalPosLeft, verticalSize));
-            // right
-            Walls.Add(new InvisibleWall(verticalPosRight, verticalSize));
+            InvisibleWall top = new InvisibleWall(horizontalPosTop, horizontalSize);
+            Walls.Add(top);
+            DebugManager.AddItem(top.RigidBody.Collider);
+
+            InvisibleWall bot = new InvisibleWall(horizontalPosBot, horizontalSize);
+            Walls.Add(bot);
+            DebugManager.AddItem(bot.RigidBody.Collider);
+
+            InvisibleWall left = new InvisibleWall(verticalPosLeft, verticalSize);
+            Walls.Add(left);
+            DebugManager.AddItem(left.RigidBody.Collider);
+
+            InvisibleWall right = new InvisibleWall(verticalPosRight, verticalSize);
+            Walls.Add(right);
+            DebugManager.AddItem(right.RigidBody.Collider);
         }
         public static void DeleteWalls()
         {
@@ -44,7 +53,6 @@ namespace Infection
             for (int i = 0; i < Walls.Count; i++)
             {
                 Walls[i].IsActive = true;
-                DebugManager.AddItem(Walls[i].RigidBody.Collider);
             }
         }
         public static void DespawnWalls()
@@ -52,7 +60,6 @@ namespace Infection
             for (int i = 0; i < Walls.Count; i++)
             {
                 Walls[i].IsActive = false;
-                DebugManager.RemoveItem(Walls[i].RigidBody.Collider);
             }
         }
     }

@@ -9,11 +9,25 @@ namespace Infection
 {
     internal class SickeningState : InfectionState
     {
+        protected Animation anim;
         public SickeningState(Ball b) : base(b)
         {
+            anim = new Animation(ball, 10, 10, loop: true);
+        }
+        public override void OnEnter()
+        {
+            ball.SetTexture("virusHit");
+            ball.Animation = anim;
+            ball.Animation.Play();
+        }
+        public override void OnExit()
+        {
+            ball.Animation.Stop();
         }
         public override void Update()
         {
+            if (ball.Fsm.CurrentState == this)
+                ball.Animation.Update();
             if (ball.Energy <= 0)
             {
                 fsm.GoTo(FSMStates.Infected);

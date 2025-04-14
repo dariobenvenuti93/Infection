@@ -12,20 +12,32 @@ namespace Infection
     internal class InfectedState : InfectionState
     {
         protected Stopwatch recoveryTimer;
+        protected Animation anim;
         public InfectedState(Ball b) : base(b)
         {
             recoveryTimer = new Stopwatch();
+            anim = new Animation(ball, 7, 7, loop: true);
         }
         public override void OnEnter()
         {
+            ball.SetTexture("virusAttack");
+            ball.Animation = anim;
+            ball.Animation.Play();
             if (ball.Energy != 0.0f)
             {
                 ball.Energy = 0.0f;
             }
             BallManager.Infect(ball);
         }
+        public override void OnExit()
+        {
+            ball.Animation.Stop();
+        }
         public override void Update()
         {
+
+            if (ball.Fsm.CurrentState == this) 
+                ball.Animation.Update();
             bool collidingWithBall = false;
             List<RigidBody> collidingBodies = ball.InfectionRigidBody.IsCollidingWith;
             if (collidingBodies.Count > 0)

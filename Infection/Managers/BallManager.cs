@@ -24,7 +24,7 @@ namespace Infection
         public static void CreateBalls()
         {
             for (int i = 0; i < Configs.NumBalls; i++)
-                Balls.Add(new Ball("ball", DrawLayer.Playground, spriteW: Configs.BallSize, spriteH: Configs.BallSize));
+                Balls.Add(new Ball("virusIdle1", DrawLayer.Playground, spriteW: Configs.BallSize, lockedRatio: true, sheet: true, numFrames: 27));
         }
         public static void DeleteBalls()
         {
@@ -40,15 +40,15 @@ namespace Infection
         {
             InfectedBalls.Remove(b);
             Balls.Add(b);
+            ResetBall(b);
         }
         static public void SpawnBalls()
         {
-            float boxThickness = Configs.BoxThickness * 1.1f + Configs.BallSize * 1.0f;
-            float maxPosX = Game.Window.Width - boxThickness;
-            float minPosX = boxThickness;
-            float maxPosY = Game.Window.Height - boxThickness;
-            float minPosY = Configs.TopPadding + boxThickness;
-
+            float padding = Configs.BoxThickness + Configs.BallSpeed + Configs.BallSize;
+            float maxPosX = Game.Window.Width - padding;
+            float minPosX = padding;
+            float maxPosY = Game.Window.Height - padding;
+            float minPosY = Configs.TopPadding + padding;
             float posX;
             float posY;
 
@@ -73,6 +73,7 @@ namespace Infection
                 if (RandomGenerator.GetRandomBool())
                     Balls[i].DirectionY *= -1;
             }
+            // this should be fixed since we are removing an item from Balls each iteration
             for (int i = 0; i < Configs.NumInfectedBalls; i++)
             {
                 Balls[i].Fsm.GoTo(FSMStates.Infected);

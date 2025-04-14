@@ -27,6 +27,8 @@ namespace Infection
         public static int WindowHeight;
         public static int InitialGameObjectId;
         public static int TopPadding;
+        public static int BallTextureWidth;
+        public static int BallTextureHeight;
 
         public static bool Debug;
 
@@ -36,22 +38,25 @@ namespace Infection
         }
         static Configs()
         {
+            
             BallSpeed = 100.0f;
             BallEnergy = 100;
-            NumBalls = 30;
+            NumBalls = 5;
             NumInfectedBalls = 1;
-            Debug = true;
+            Debug = false;
             WindowWidth = 1250;
             WindowHeight = 600;
             BoxThickness = 12.5f;
-            BallSize = (int)(WindowWidth * 0.02f);
-            InfectionRadius = BallSize * 3.5f;
+            BallSize = (int)(WindowWidth * 0.035f);
+            InfectionRadius = BallSize * 2.5f;
             InitialGameObjectId = 0;
             currentGameObjectId = InitialGameObjectId;
-            TopPadding = 30;
+            TopPadding = 0;
             RecoveryRate = 15.0f;  // energy each second
-            InfectionRate = 30.0f; // energy each second
-            RecoveryTime = 4000.0f; // milliseconds
+            InfectionRate = 35.0f; // energy each second
+            RecoveryTime = 30000.0f; // milliseconds
+            BallTextureWidth = 464;
+            BallTextureHeight = 467;
         }
         public static int GetGameObjectId()
         {

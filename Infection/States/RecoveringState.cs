@@ -9,11 +9,25 @@ namespace Infection
 {
     internal class RecoveringState : InfectionState
     {
+        protected Animation anim;
         public RecoveringState(Ball b) : base(b)    
         {
+            anim = new Animation(ball, 7, 7, loop: true);
+        }
+        public override void OnEnter()
+        {
+            ball.SetTexture("virusIdle2");
+            ball.Animation = anim;
+            ball.Animation.Play();
+        }
+        public override void OnExit()
+        {
+            ball.Animation.Stop();
         }
         public override void Update()
         {
+            if (ball.Fsm.CurrentState == this) 
+                ball.Animation.Update();
             List<RigidBody> collidingBodies = ball.RigidBody.IsCollidingWith;
             if (collidingBodies.Count > 0)
             {

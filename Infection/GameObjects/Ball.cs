@@ -9,16 +9,19 @@ namespace Infection
     internal class Ball : GameObject
     {
         protected Vector2 direction;
-        public float DirectionX { get { return direction.X; } set { direction.X = value; } }
-        public float DirectionY { get { return direction.Y; } set { direction.Y = value; } }
+        protected Animation animation;
         protected float energy;
         protected StateMachine fsm;
+        protected RigidBody infectionRigidBody;
+
+        public Animation Animation { get { return animation; } set { animation = value; } }
+        public float DirectionX { get { return direction.X; } set { direction.X = value; } }
+        public float DirectionY { get { return direction.Y; } set { direction.Y = value; } }
         public StateMachine Fsm { get { return fsm; } }
         public float Energy { get { return energy;} set { energy = value; } }
-
-        protected RigidBody infectionRigidBody;
         public RigidBody InfectionRigidBody { get { return infectionRigidBody; } }
-        public Ball(string textureName, DrawLayer layer = DrawLayer.Playground, int textOffsetX = 0, int textOffsetY = 0, int spriteW = 0, int spriteH  = 0) : base(textureName, layer, textOffsetX, textOffsetY, spriteW, spriteH)
+        
+        public Ball(string textureName, DrawLayer layer = DrawLayer.Playground, int textOffsetX = 0, int textOffsetY = 0, int spriteW = 0, int spriteH  = 0, bool lockedRatio = false, bool sheet = false, int numFrames = 1) : base(textureName, layer, textOffsetX, textOffsetY, spriteW, spriteH, lockedRatio, numFrames)
         {
             maxSpeed = Configs.BallSpeed;
             energy = Configs.BallEnergy;
@@ -60,27 +63,26 @@ namespace Infection
         }
         public override void OnCollide(Collision collisionInfo)
         {
-            if (collisionInfo.RigidBody.Type == RigidBodyType.Infection)
-            {
-                //Console.WriteLine($"Infection OnCollide {id}");
-            }
-            else if (collisionInfo.RigidBody.Type == RigidBodyType.Ball) {
+            if (collisionInfo.RigidBody.Type == RigidBodyType.Ball) {
                 //Console.WriteLine($"Ball OnCollide {id}");
                 if (collisionInfo.Collider is InvisibleWall)
                 {
-                    if (sprite.position.X - HalfWidth < Configs.BoxThickness || sprite.position.X + HalfWidth > Game.Window.Width - Configs.BoxThickness)
+                    base.OnCollide(collisionInfo);
+                    if (collisionInfo.Delta.Y == 0.0f)
                     {
                         // left || right wall
                         direction.X *= -1.0f;
+                        sprite.position.X += collisionInfo.Delta.X;
                     }
-                    if (sprite.position.Y - HalfHeight < Configs.BoxThickness + Configs.TopPadding || sprite.position.Y + HalfHeight > Game.Window.Height - Configs.BoxThickness)
+                    else if (collisionInfo.Delta.X == 0.0f)
                     {
                         // top || bot wall
                         direction.Y *= -1.0f;
+                        sprite.position.Y += collisionInfo.Delta.Y;
                     }
-                    base.OnCollide(collisionInfo);
+                    Console.WriteLine($"New position: {sprite.position}");
                 }
             }
-        } 
+        }
     }
 }
