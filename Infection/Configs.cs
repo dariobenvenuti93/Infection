@@ -41,7 +41,7 @@ namespace Infection
             
             BallSpeed = 100.0f;
             BallEnergy = 100;
-            NumBalls = 5;
+            NumBalls = 30;
             NumInfectedBalls = 1;
             Debug = false;
             WindowWidth = 1250;

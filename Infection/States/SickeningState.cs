@@ -26,8 +26,6 @@ namespace Infection
         }
         public override void Update()
         {
-            if (ball.Fsm.CurrentState == this)
-                ball.Animation.Update();
             if (ball.Energy <= 0)
             {
                 fsm.GoTo(FSMStates.Infected);

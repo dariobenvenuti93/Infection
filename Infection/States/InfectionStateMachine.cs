@@ -19,5 +19,10 @@ namespace Infection
             this.AddState(FSMStates.InRecovery, new RecoveringState(b));
             this.GoTo(FSMStates.Healthy);
         }
+        public override void Update()
+        {
+            base.Update();
+            b.Animation.Update();
+        }
     }
 }

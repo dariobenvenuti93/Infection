@@ -21,7 +21,7 @@ namespace Infection
         }
         public override void LoadAssets()
         {
-            //GfxManager.AddTexture("ball", "Assets/Graphics/grey_ball.png");
+            GfxManager.AddTexture("ball", "Assets/Graphics/grey_ball.png");
             GfxManager.AddTexture("virusIdle1", "Assets/Graphics/coronavirus-classic-idle1-sheet.png");
             GfxManager.AddTexture("virusIdle2", "Assets/Graphics/coronavirus-classic-idle2-sheet.png");
             GfxManager.AddTexture("virusHit", "Assets/Graphics/coronavirus-classic-hit-sheet.png");
@@ -72,7 +72,6 @@ namespace Infection
             {
                 if (!IsExitKeyPressed)
                 {
-                    
                     IsExitKeyPressed = true;
                     IsPlaying = false;
                 }

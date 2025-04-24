@@ -73,20 +73,8 @@ namespace AIV_Engine
 
         public static void Draw()
         {
-            if (Game.Window.GetKey(KeyCode.F1))
-            {
-                if (!isButtonPressed)
-                {
-                    isButtonPressed = true;
-                    isActive = !isActive;
-                }
-            }
-            else
-            {
-                isButtonPressed = false;
-            }
 
-            if (!isActive)
+            if (!Configs.Debug)
                 return;
 
             for (int i = 0; i < items.Count; i++)

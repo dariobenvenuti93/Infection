@@ -32,7 +32,7 @@ namespace AIV_Engine
             currentState.OnEnter();
         }
 
-        public void Update()
+        public virtual void Update()
         {
             currentState.Update();
         }

@@ -19,17 +19,8 @@ namespace Infection
         {
             Balls = new List<Ball>(Configs.NumBalls);
             InfectedBalls = new List<Ball>(Configs.NumInfectedBalls);
-            CreateBalls();
-        }
-        public static void CreateBalls()
-        {
             for (int i = 0; i < Configs.NumBalls; i++)
                 Balls.Add(new Ball("virusIdle1", DrawLayer.Playground, spriteW: Configs.BallSize, lockedRatio: true, sheet: true, numFrames: 27));
-        }
-        public static void DeleteBalls()
-        {
-            Balls.Clear();
-            InfectedBalls.Clear();
         }
         public static void Infect(Ball b)
         {
@@ -44,7 +35,7 @@ namespace Infection
         }
         static public void SpawnBalls()
         {
-            float padding = Configs.BoxThickness + Configs.BallSpeed + Configs.BallSize;
+            float padding = Configs.BoxThickness + Configs.BallSize;
             float maxPosX = Game.Window.Width - padding;
             float minPosX = padding;
             float maxPosY = Game.Window.Height - padding;

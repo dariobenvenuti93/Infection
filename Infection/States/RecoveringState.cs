@@ -26,8 +26,6 @@ namespace Infection
         }
         public override void Update()
         {
-            if (ball.Fsm.CurrentState == this) 
-                ball.Animation.Update();
             List<RigidBody> collidingBodies = ball.RigidBody.IsCollidingWith;
             if (collidingBodies.Count > 0)
             {

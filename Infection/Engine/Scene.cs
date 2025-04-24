@@ -1,4 +1,5 @@
-﻿using Aiv.Fast2D;
+﻿using System;
+using Aiv.Fast2D;
 using Infection;
 using OpenTK;
 
@@ -31,11 +32,12 @@ namespace AIV_Engine
                 {
                     isF1Pressed = true;
                     Configs.SetDebug(!Configs.Debug);
+                    Console.WriteLine($"Debug {Configs.Debug}");
                 }
-                else
-                {
-                    isF1Pressed = false;
-                }
+            }
+            else
+            {
+                isF1Pressed = false;
             }
         }
 
