@@ -64,8 +64,7 @@ namespace Infection
                 if (RandomGenerator.GetRandomBool())
                     Balls[i].DirectionY *= -1;
             }
-            // this should be fixed since we are removing an item from Balls each iteration
-            for (int i = 0; i < Configs.NumInfectedBalls; i++)
+            for (int i = Configs.NumInfectedBalls - 1; i >= 0 ; i--)
             {
                 Balls[i].Fsm.GoTo(FSMStates.Infected);
             }
